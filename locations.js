@@ -238,7 +238,7 @@ const locations = {
     },
 
     "Western Area Urban": {
-        "Western Area Rural": []
+        "Western Area Urban": []
     }
 
 };
