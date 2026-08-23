@@ -233,8 +233,40 @@ const locations = {
         "Gbane Kandor": []
     },
 
-    "Western Area Rural": {},
-    "Western Area Rural": [],
-    "Western Area Urban": {}
-    "Western Area Urban": [],
-};
+    "Western Area Rural": {
+        "Koya Rural": [],
+        "Mountain Rural": [],
+        "Waterloo Rural": [],
+        "York Rural": []
+    },
+
+    "Western Area Urban": {
+        "Koya Rural": [],
+        "Mountain Rural": [],
+        "Waterloo Rural": [],
+        "York Rural": []
+    },
+        "Western Area Rural": {
+        "Koya Rural": [],
+        "Mountain Rural": [],
+        "Waterloo Rural": [],
+        "York Rural": []
+    },
+
+    "Western Area Urban": {
+        "Koya Rural": [],
+        "Mountain Rural": [],
+        "Waterloo Rural": [],
+        "York Rural": []
+    },
+     "Western Area Rural": {
+        "Koya Rural": [],
+        "Mountain Rural": [],
+        "Waterloo Rural": [],
+        "York Rural": []
+    },
+
+    "Western Area Urban": {
+        "Koya Rural": [],
+        "Mountain Rural": [],
+        "Waterloo Rural": [],
