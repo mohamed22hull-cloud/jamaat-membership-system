@@ -234,39 +234,11 @@ const locations = {
     },
 
     "Western Area Rural": {
-        "Koya Rural": [],
-        "Mountain Rural": [],
-        "Waterloo Rural": [],
-        "York Rural": []
+        "Western Area Rural": []
     },
 
     "Western Area Urban": {
-        "Koya Rural": [],
-        "Mountain Rural": [],
-        "Waterloo Rural": [],
-        "York Rural": []
-    },
-        "Western Area Rural": {
-        "Koya Rural": [],
-        "Mountain Rural": [],
-        "Waterloo Rural": [],
-        "York Rural": []
-    },
+        "Western Area Rural": []
+    }
 
-    "Western Area Urban": {
-        "Koya Rural": [],
-        "Mountain Rural": [],
-        "Waterloo Rural": [],
-        "York Rural": []
-    },
-     "Western Area Rural": {
-        "Koya Rural": [],
-        "Mountain Rural": [],
-        "Waterloo Rural": [],
-        "York Rural": []
-    },
-
-    "Western Area Urban": {
-        "Koya Rural": [],
-        "Mountain Rural": [],
-        "Waterloo Rural": [],
+};
