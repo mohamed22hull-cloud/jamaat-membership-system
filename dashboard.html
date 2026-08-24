@@ -1,1 +1,713 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard - National Ijtema MKA & MAA Sierra Leone 2026</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f2;
+    color: #222;
+}
+
+header {
+    background: #006400;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header p {
+    margin: 8px 0 0;
+}
+
+.top-bar {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logout-button {
+    background: #b00020;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.logout-button:hover {
+    background: #8a0018;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 15px 40px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.stat-card h2 {
+    margin: 0;
+    color: #006400;
+    font-size: 32px;
+}
+
+.stat-card p {
+    margin: 8px 0 0;
+    color: #555;
+}
+
+.search-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.table-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+th {
+    background: #006400;
+    color: white;
+    padding: 13px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f5faf6;
+}
+
+.member-photo {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    font-weight: bold;
+    color: #006400;
+}
+
+.error {
+    background: #ffe8e8;
+    color: #a00000;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.empty {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+@media (max-width: 700px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .logout-button {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🕌 Admin Dashboard</h1>
+    <p>National Ijtema MKA & MAA Sierra Leone 2026</p>
+</header>
+
+<div class="top-bar">
+
+    <div>
+        <strong>Jamaat Registration Administration</strong>
+    </div>
+
+    <button
+        class="logout-button"
+        onclick="logout()">
+        Logout
+    </button>
+
+</div>
+
+<div class="container">
+
+    <div
+        id="errorMessage"
+        class="error">
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <h2 id="totalMembers">0</h2>
+            <p>Total Registrations</p>
+        </div>
+
+        <div class="stat-card">
+            <h2 id="khuddamCount">0</h2>
+            <p>Khuddam</p>
+        </div>
+
+        <div class="stat-card">
+            <h2 id="otherCount">0</h2>
+            <p>Other Categories</p>
+        </div>
+
+    </div>
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by name, district, chiefdom, Majlis or category..."
+            oninput="filterMembers()">
+
+    </div>
+
+    <div class="table-container">
+
+        <div
+            id="loading"
+            class="loading">
+
+            Loading registrations...
+
+        </div>
+
+        <table id="membersTable" style="display:none;">
+
+            <thead>
+
+                <tr>
+
+                    <th>Photo</th>
+                    <th>Full Name</th>
+                    <th>Gender</th>
+                    <th>District</th>
+                    <th>Chiefdom</th>
+                    <th>Majlis</th>
+                    <th>Category</th>
+                    <th>Profession</th>
+                    <th>Emergency Phone</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="membersBody"></tbody>
+
+        </table>
+
+        <div
+            id="emptyMessage"
+            class="empty"
+            style="display:none;">
+
+            No registrations found.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://pfebkzrkncpsujbbmhoq.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_t5bF40Ud4fZJKtUB-c4sgQ_hZw_3aQR";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+let allMembers = [];
+
+
+/* ================================
+   CHECK ADMIN LOGIN
+================================ */
+
+async function checkAdmin() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getSession();
+
+    if (error) {
+
+        console.error(error);
+
+        window.location.href =
+            "index.html";
+
+        return;
+    }
+
+    if (!data.session) {
+
+        alert(
+            "Please login as an administrator."
+        );
+
+        window.location.href =
+            "index.html";
+
+        return;
+    }
+
+    loadMembers();
+}
+
+
+/* ================================
+   LOAD MEMBERS
+================================ */
+
+async function loadMembers() {
+
+    const loading =
+        document.getElementById("loading");
+
+    const table =
+        document.getElementById("membersTable");
+
+    const errorMessage =
+        document.getElementById("errorMessage");
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("Members")
+
+            .select("*")
+
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+        if (error) {
+
+            throw error;
+        }
+
+
+        allMembers =
+            data || [];
+
+
+        updateStatistics();
+
+
+        displayMembers(
+            allMembers
+        );
+
+
+        loading.style.display =
+            "none";
+
+        table.style.display =
+            "table";
+
+
+    } catch (error) {
+
+        console.error(
+            "Loading error:",
+            error
+        );
+
+        loading.style.display =
+            "none";
+
+        errorMessage.style.display =
+            "block";
+
+        errorMessage.textContent =
+            "Could not load registrations: " +
+            error.message;
+    }
+}
+
+
+/* ================================
+   STATISTICS
+================================ */
+
+function updateStatistics() {
+
+    document.getElementById(
+        "totalMembers"
+    ).textContent =
+        allMembers.length;
+
+
+    const khuddam =
+        allMembers.filter(
+            member =>
+                member.member_category ===
+                "Khuddam"
+        );
+
+
+    document.getElementById(
+        "khuddamCount"
+    ).textContent =
+        khuddam.length;
+
+
+    document.getElementById(
+        "otherCount"
+    ).textContent =
+        allMembers.length -
+        khuddam.length;
+}
+
+
+/* ================================
+   DISPLAY MEMBERS
+================================ */
+
+function displayMembers(
+    members
+) {
+
+    const body =
+        document.getElementById(
+            "membersBody"
+        );
+
+    const empty =
+        document.getElementById(
+            "emptyMessage"
+        );
+
+
+    body.innerHTML = "";
+
+
+    if (!members.length) {
+
+        empty.style.display =
+            "block";
+
+        return;
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    members.forEach(member => {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+
+                ${
+                    member.photo
+
+                    ?
+
+                    `<img
+                        src="${member.photo}"
+                        class="member-photo">`
+
+                    :
+
+                    "No photo"
+                }
+
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    member.full_name
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    member.gender
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    member.district
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    member.chiefdom
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    member.majlis
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    member.member_category
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    member.profession
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    member.emergency_phone
+                )}
+            </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+    });
+}
+
+
+/* ================================
+   SEARCH
+================================ */
+
+function filterMembers() {
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    if (!search) {
+
+        displayMembers(
+            allMembers
+        );
+
+        return;
+    }
+
+
+    const filtered =
+        allMembers.filter(
+            member => {
+
+                const text = [
+
+                    member.full_name,
+                    member.district,
+                    member.chiefdom,
+                    member.majlis,
+                    member.member_category,
+                    member.profession,
+                    member.gender
+
+                ]
+                .join(" ")
+                .toLowerCase();
+
+
+                return text.includes(
+                    search
+                );
+            }
+        );
+
+
+    displayMembers(
+        filtered
+    );
+}
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+        "index.html";
+}
+
+
+/* ================================
+   SECURITY
+================================ */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* START */
+
+checkAdmin();
+
+</script>
+
+</body>
+</html>
