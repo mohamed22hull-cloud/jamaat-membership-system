@@ -276,6 +276,19 @@ button:disabled {
     background: #f2fff4;
 }
 
+.success button {
+    background: #32934e;
+    color: white;
+    font-weight: bold;
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.success button:hover {
+    background: #26763e;
+}
+
 .camera-controls {
     display: flex;
     flex-wrap: wrap;
@@ -450,6 +463,8 @@ function startRegistration() {
     document.getElementById("welcomePage").style.display = "none";
 
     document.getElementById("registrationPage").style.display = "block";
+
+    memberData = {};
 
     showPersonalStep();
 }
@@ -1126,11 +1141,6 @@ async function startCamera() {
 
         console.error("Camera Error:", error);
 
-        /*
-         * Some phones may not accept the preferred
-         * camera setting. Try a normal camera request.
-         */
-
         try {
 
             const fallbackStream =
@@ -1485,30 +1495,11 @@ function escapeHtml(value) {
 
     return String(value)
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
@@ -1547,11 +1538,8 @@ async function submitRegistration() {
     try {
 
         const { error } =
-
             await supabaseClient
-
                 .from("Members")
-
                 .insert([{
 
                     full_name:
@@ -1617,7 +1605,6 @@ async function submitRegistration() {
                 }]);
 
         if (error) {
-
             throw error;
         }
 
@@ -1646,6 +1633,13 @@ async function submitRegistration() {
                         Ahmadiyya Muslim Jamaat
                     </strong>
                 </p>
+
+                <button
+                    onclick="startNewRegistration()">
+
+                    ➕ Register Another Member
+
+                </button>
 
             </div>
 
@@ -1682,6 +1676,38 @@ async function submitRegistration() {
             errorMessage
         );
     }
+}
+
+
+/* =====================================================
+   REGISTER ANOTHER MEMBER
+   ===================================================== */
+
+function startNewRegistration() {
+
+    // Stop camera if it is still running
+    stopCamera();
+
+    // Clear the previous registration
+    memberData = {};
+
+    // Make sure the registration page remains visible
+    document.getElementById(
+        "welcomePage"
+    ).style.display = "none";
+
+    document.getElementById(
+        "registrationPage"
+    ).style.display = "block";
+
+    // Return to Step 1
+    showPersonalStep();
+
+    // Scroll to the top
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 </script>
