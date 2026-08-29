@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -20,6 +21,10 @@ body {
     background: #f1f5f2;
     color: #222;
 }
+
+/* ================================
+   HEADER
+================================ */
 
 header {
     background: #006400;
@@ -37,6 +42,10 @@ header p {
     margin: 8px 0 0;
 }
 
+/* ================================
+   TOP BAR
+================================ */
+
 .top-bar {
     max-width: 1200px;
     margin: 20px auto;
@@ -45,6 +54,21 @@ header p {
     justify-content: space-between;
     align-items: center;
     gap: 15px;
+}
+
+.id-button {
+    background: #006400;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.id-button:hover {
+    background: #004d00;
 }
 
 .logout-button {
@@ -61,11 +85,19 @@ header p {
     background: #8a0018;
 }
 
+/* ================================
+   MAIN CONTAINER
+================================ */
+
 .container {
     max-width: 1200px;
     margin: auto;
     padding: 0 15px 40px;
 }
+
+/* ================================
+   STATISTICS
+================================ */
 
 .stats {
     display: grid;
@@ -93,6 +125,10 @@ header p {
     color: #555;
 }
 
+/* ================================
+   SEARCH
+================================ */
+
 .search-box {
     background: white;
     padding: 20px;
@@ -108,6 +144,10 @@ header p {
     border-radius: 6px;
     font-size: 16px;
 }
+
+/* ================================
+   TABLE
+================================ */
 
 .table-container {
     background: white;
@@ -146,6 +186,10 @@ tr:hover {
     border: 2px solid #ccc;
 }
 
+/* ================================
+   MESSAGES
+================================ */
+
 .loading {
     text-align: center;
     padding: 30px;
@@ -168,6 +212,219 @@ tr:hover {
     color: #666;
 }
 
+/* ================================
+   ID CARD SECTION
+================================ */
+
+#idCardSection {
+    display: none;
+}
+
+.id-generator {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    margin-bottom: 25px;
+}
+
+.id-generator h2 {
+    text-align: center;
+    color: #006400;
+    margin-top: 0;
+}
+
+.id-selector {
+    max-width: 600px;
+    margin: 0 auto 25px;
+}
+
+.id-selector label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.id-selector select {
+    width: 100%;
+    padding: 13px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* ================================
+   ID CARD
+================================ */
+
+.id-card {
+    position: relative;
+    width: 86mm;
+    height: 54mm;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 8px;
+
+    background-image: url("background.png");
+    background-size: cover;
+    background-position: center;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    color: #111;
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.25);
+}
+
+.card-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    padding: 5mm;
+}
+
+/* LOGO */
+
+.logo-container {
+    position: absolute;
+    top: 4mm;
+    right: 5mm;
+    width: 16mm;
+    height: 16mm;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 2mm;
+}
+
+/* HEADINGS */
+
+.heading {
+    width: 65%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 1.2;
+    margin-bottom: 2mm;
+}
+
+.subheading {
+    font-size: 8px;
+    font-weight: bold;
+    text-align: center;
+    width: 65%;
+}
+
+/* PHOTO */
+
+.id-photo {
+    position: absolute;
+    left: 5mm;
+    top: 19mm;
+    width: 25mm;
+    height: 29mm;
+    object-fit: cover;
+    border: 2px solid white;
+    border-radius: 3px;
+    background: #ddd;
+}
+
+/* DETAILS */
+
+.id-details {
+    position: absolute;
+    left: 34mm;
+    top: 19mm;
+    right: 5mm;
+    font-size: 8px;
+    line-height: 1.65;
+}
+
+.detail-row {
+    display: flex;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.detail-label {
+    width: 25mm;
+    font-weight: bold;
+}
+
+.detail-value {
+    flex: 1;
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.id-footer {
+    position: absolute;
+    bottom: 2.5mm;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 6.5px;
+    font-weight: bold;
+}
+
+/* ================================
+   ID CARD CONTROLS
+================================ */
+
+.id-controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.print-button {
+    background: #006400;
+}
+
+.back-button {
+    background: #555;
+}
+
+.print-button:hover {
+    background: #004d00;
+}
+
+.back-button:hover {
+    background: #333;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
 @media (max-width: 700px) {
 
     .stats {
@@ -179,123 +436,507 @@ tr:hover {
         align-items: stretch;
     }
 
+    .id-button,
     .logout-button {
         width: 100%;
+        margin: 5px 0;
     }
 
     header h1 {
         font-size: 21px;
     }
+
+    .id-card {
+        transform: scale(0.9);
+        transform-origin: top center;
+        margin-bottom: -25px;
+    }
 }
+
+/* ================================
+   PRINT
+================================ */
+
+@media print {
+
+    @page {
+        size: auto;
+        margin: 0;
+    }
+
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    header,
+    .top-bar,
+    #dashboardSection,
+    .id-generator h2,
+    .id-selector,
+    .id-controls {
+        display: none !important;
+    }
+
+    #idCardSection {
+        display: block !important;
+    }
+
+    .id-generator {
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .id-card {
+        margin: 10mm;
+        box-shadow: none;
+    }
+}
+
 </style>
+
 </head>
 
 <body>
 
+<!-- ================================
+     HEADER
+================================ -->
+
 <header>
-    <h1>🕌 Admin Dashboard</h1>
-    <p>National Ijtema MKA & MAA Sierra Leone 2026</p>
+
+```
+<h1>
+    🕌 Admin Dashboard
+</h1>
+
+<p>
+    National Ijtema MKA & MAA Sierra Leone 2026
+</p>
+```
+
 </header>
+
+<!-- ================================
+     TOP BAR
+================================ -->
 
 <div class="top-bar">
 
-    <div>
-        <strong>Jamaat Registration Administration</strong>
-    </div>
+```
+<div>
+    <strong>
+        Jamaat Registration Administration
+    </strong>
+</div>
+
+<div>
+
+    <button
+        class="id-button"
+        onclick="openIDCardGenerator()">
+
+        🪪 ID Card
+
+    </button>
 
     <button
         class="logout-button"
         onclick="logout()">
+
         Logout
+
     </button>
 
 </div>
+```
 
-<div class="container">
+</div>
 
-    <div
-        id="errorMessage"
-        class="error">
-    </div>
+<!-- ================================
+     DASHBOARD SECTION
+================================ -->
 
-    <div class="stats">
+<div
+    id="dashboardSection"
+    class="container">
 
-        <div class="stat-card">
-            <h2 id="totalMembers">0</h2>
-            <p>Total Registrations</p>
-        </div>
+```
+<div
+    id="errorMessage"
+    class="error">
+</div>
 
-        <div class="stat-card">
-            <h2 id="khuddamCount">0</h2>
-            <p>Khuddam</p>
-        </div>
 
-        <div class="stat-card">
-            <h2 id="otherCount">0</h2>
-            <p>Other Categories</p>
-        </div>
+<!-- STATISTICS -->
 
-    </div>
+<div class="stats">
 
-    <div class="search-box">
+    <div class="stat-card">
 
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search by name, district, chiefdom, Majlis or category..."
-            oninput="filterMembers()">
+        <h2 id="totalMembers">
+            0
+        </h2>
+
+        <p>
+            Total Registrations
+        </p>
 
     </div>
 
-    <div class="table-container">
 
-        <div
-            id="loading"
-            class="loading">
+    <div class="stat-card">
 
-            Loading registrations...
+        <h2 id="khuddamCount">
+            0
+        </h2>
 
-        </div>
+        <p>
+            Khuddam
+        </p>
 
-        <table id="membersTable" style="display:none;">
+    </div>
 
-            <thead>
 
-                <tr>
+    <div class="stat-card">
 
-                    <th>Photo</th>
-                    <th>Full Name</th>
-                    <th>Gender</th>
-                    <th>District</th>
-                    <th>Chiefdom</th>
-                    <th>Majlis</th>
-                    <th>Category</th>
-                    <th>Profession</th>
-                    <th>Emergency Phone</th>
+        <h2 id="otherCount">
+            0
+        </h2>
 
-                </tr>
-
-            </thead>
-
-            <tbody id="membersBody"></tbody>
-
-        </table>
-
-        <div
-            id="emptyMessage"
-            class="empty"
-            style="display:none;">
-
-            No registrations found.
-
-        </div>
+        <p>
+            Other Categories
+        </p>
 
     </div>
 
 </div>
 
 
+<!-- SEARCH -->
+
+<div class="search-box">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by name, district, chiefdom, Majlis or category..."
+        oninput="filterMembers()">
+
+</div>
+
+
+<!-- TABLE -->
+
+<div class="table-container">
+
+    <div
+        id="loading"
+        class="loading">
+
+        Loading registrations...
+
+    </div>
+
+
+    <table
+        id="membersTable"
+        style="display:none;">
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Photo
+                </th>
+
+                <th>
+                    Full Name
+                </th>
+
+                <th>
+                    Gender
+                </th>
+
+                <th>
+                    District
+                </th>
+
+                <th>
+                    Chiefdom
+                </th>
+
+                <th>
+                    Majlis
+                </th>
+
+                <th>
+                    Category
+                </th>
+
+                <th>
+                    Profession
+                </th>
+
+                <th>
+                    Emergency Phone
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody
+            id="membersBody">
+        </tbody>
+
+    </table>
+
+
+    <div
+        id="emptyMessage"
+        class="empty"
+        style="display:none;">
+
+        No registrations found.
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ================================
+     ID CARD GENERATOR
+================================ -->
+
+<div
+    id="idCardSection"
+    class="container">
+
+```
+<div class="id-generator">
+
+    <h2>
+        🪪 ID Card Generator
+    </h2>
+
+
+    <div class="id-selector">
+
+        <label for="idMemberSelect">
+
+            Select Registered Member:
+
+        </label>
+
+
+        <select
+            id="idMemberSelect"
+            onchange="loadIDCardMember()">
+
+            <option value="">
+
+                Select a registered member
+
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- ID CARD -->
+
+    <div
+        id="idCard"
+        class="id-card">
+
+        <div class="card-overlay"></div>
+
+
+        <div class="card-content">
+
+
+            <!-- LOGO -->
+
+            <div class="logo-container">
+
+                <img
+                    src="khuddam-logo.png"
+                    alt="Khuddam Logo">
+
+            </div>
+
+
+            <!-- HEADING -->
+
+            <div class="heading">
+
+                THE AHMADIYYA MUSLIM JAMAAT
+
+            </div>
+
+
+            <div class="subheading">
+
+                NATIONAL IJTEMA MKA & MAA SIERRA LEONE 2026
+
+            </div>
+
+
+            <!-- PHOTO -->
+
+            <img
+                id="idMemberPhoto"
+                class="id-photo"
+                src="background.png"
+                alt="Member Photo">
+
+
+            <!-- DETAILS -->
+
+            <div class="id-details">
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Name:
+                    </span>
+
+                    <span
+                        class="detail-value"
+                        id="idMemberName">
+
+                        Select Member
+
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Date of Birth:
+                    </span>
+
+                    <span
+                        class="detail-value"
+                        id="idMemberDOB">
+
+                        --
+
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Category:
+                    </span>
+
+                    <span
+                        class="detail-value"
+                        id="idMemberCategory">
+
+                        --
+
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        District:
+                    </span>
+
+                    <span
+                        class="detail-value"
+                        id="idMemberDistrict">
+
+                        --
+
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Majlis:
+                    </span>
+
+                    <span
+                        class="detail-value"
+                        id="idMemberMajlis">
+
+                        --
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="id-footer">
+
+                NATIONAL IJTEMA MKA & MAA SIERRA LEONE 2026
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTROLS -->
+
+    <div class="id-controls">
+
+        <button
+            class="print-button"
+            onclick="printIDCard()">
+
+            🖨️ Print ID Card
+
+        </button>
+
+
+        <button
+            class="back-button"
+            onclick="closeIDCardGenerator()">
+
+            🔙 Back to Dashboard
+
+        </button>
+
+    </div>
+
+</div>
+```
+
+</div>
+
 <script>
+
+/* ================================
+   SUPABASE
+================================ */
 
 const SUPABASE_URL =
     "https://pfebkzrkncpsujbbmhoq.supabase.co";
@@ -322,7 +963,9 @@ async function checkAdmin() {
     const {
         data,
         error
-    } = await supabaseClient.auth.getSession();
+    } =
+        await supabaseClient.auth.getSession();
+
 
     if (error) {
 
@@ -333,6 +976,7 @@ async function checkAdmin() {
 
         return;
     }
+
 
     if (!data.session) {
 
@@ -346,6 +990,7 @@ async function checkAdmin() {
         return;
     }
 
+
     loadMembers();
 }
 
@@ -357,31 +1002,39 @@ async function checkAdmin() {
 async function loadMembers() {
 
     const loading =
-        document.getElementById("loading");
+        document.getElementById(
+            "loading"
+        );
 
     const table =
-        document.getElementById("membersTable");
+        document.getElementById(
+            "membersTable"
+        );
 
     const errorMessage =
-        document.getElementById("errorMessage");
+        document.getElementById(
+            "errorMessage"
+        );
+
 
     try {
 
         const {
             data,
             error
-        } = await supabaseClient
+        } =
+            await supabaseClient
 
-            .from("Members")
+                .from("Members")
 
-            .select("*")
+                .select("*")
 
-            .order(
-                "created_at",
-                {
-                    ascending: false
-                }
-            );
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
 
 
         if (error) {
@@ -396,10 +1049,11 @@ async function loadMembers() {
 
         updateStatistics();
 
-
         displayMembers(
             allMembers
         );
+
+        loadIDMemberList();
 
 
         loading.style.display =
@@ -416,11 +1070,14 @@ async function loadMembers() {
             error
         );
 
+
         loading.style.display =
             "none";
 
+
         errorMessage.style.display =
             "block";
+
 
         errorMessage.textContent =
             "Could not load registrations: " +
@@ -476,13 +1133,15 @@ function displayMembers(
             "membersBody"
         );
 
+
     const empty =
         document.getElementById(
             "emptyMessage"
         );
 
 
-    body.innerHTML = "";
+    body.innerHTML =
+        "";
 
 
     if (!members.length) {
@@ -498,94 +1157,101 @@ function displayMembers(
         "none";
 
 
-    members.forEach(member => {
+    members.forEach(
+        member => {
 
-        const row =
-            document.createElement("tr");
-
-
-        row.innerHTML = `
-
-            <td>
-
-                ${
-                    member.photo
-
-                    ?
-
-                    `<img
-                        src="${member.photo}"
-                        class="member-photo">`
-
-                    :
-
-                    "No photo"
-                }
-
-            </td>
+            const row =
+                document.createElement(
+                    "tr"
+                );
 
 
-            <td>
-                ${escapeHtml(
-                    member.full_name
-                )}
-            </td>
+            row.innerHTML = `
+
+                <td>
+
+                    ${
+                        member.photo
+
+                        ?
+
+                        `<img
+                            src="${escapeHtml(member.photo)}"
+                            class="member-photo"
+                            alt="Member Photo">`
+
+                        :
+
+                        "No photo"
+                    }
+
+                </td>
 
 
-            <td>
-                ${escapeHtml(
-                    member.gender
-                )}
-            </td>
+                <td>
+                    ${escapeHtml(
+                        member.full_name
+                    )}
+                </td>
 
 
-            <td>
-                ${escapeHtml(
-                    member.district
-                )}
-            </td>
+                <td>
+                    ${escapeHtml(
+                        member.gender
+                    )}
+                </td>
 
 
-            <td>
-                ${escapeHtml(
-                    member.chiefdom
-                )}
-            </td>
+                <td>
+                    ${escapeHtml(
+                        member.district
+                    )}
+                </td>
 
 
-            <td>
-                ${escapeHtml(
-                    member.majlis
-                )}
-            </td>
+                <td>
+                    ${escapeHtml(
+                        member.chiefdom
+                    )}
+                </td>
 
 
-            <td>
-                ${escapeHtml(
-                    member.member_category
-                )}
-            </td>
+                <td>
+                    ${escapeHtml(
+                        member.majlis
+                    )}
+                </td>
 
 
-            <td>
-                ${escapeHtml(
-                    member.profession
-                )}
-            </td>
+                <td>
+                    ${escapeHtml(
+                        member.member_category
+                    )}
+                </td>
 
 
-            <td>
-                ${escapeHtml(
-                    member.emergency_phone
-                )}
-            </td>
-
-        `;
+                <td>
+                    ${escapeHtml(
+                        member.profession
+                    )}
+                </td>
 
 
-        body.appendChild(row);
+                <td>
+                    ${escapeHtml(
+                        member.emergency_phone
+                    )}
+                </td>
 
-    });
+            `;
+
+
+            body.appendChild(
+                row
+            );
+
+        }
+    );
 }
 
 
@@ -647,6 +1313,338 @@ function filterMembers() {
 
 
 /* ================================
+   OPEN ID CARD GENERATOR
+================================ */
+
+function openIDCardGenerator() {
+
+    document.getElementById(
+        "dashboardSection"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "idCardSection"
+    ).style.display =
+        "block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    loadIDMemberList();
+}
+
+
+/* ================================
+   CLOSE ID CARD GENERATOR
+================================ */
+
+function closeIDCardGenerator() {
+
+    document.getElementById(
+        "idCardSection"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "dashboardSection"
+    ).style.display =
+        "block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* ================================
+   LOAD MEMBERS INTO ID SELECT
+================================ */
+
+function loadIDMemberList() {
+
+    const select =
+        document.getElementById(
+            "idMemberSelect"
+        );
+
+
+    if (!select) {
+        return;
+    }
+
+
+    select.innerHTML = `
+
+        <option value="">
+
+            Select a registered member
+
+        </option>
+
+    `;
+
+
+    allMembers.forEach(
+        (member, index) => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                index;
+
+
+            option.textContent =
+                member.full_name ||
+                "Unnamed Member";
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+}
+
+
+/* ================================
+   LOAD SELECTED ID CARD MEMBER
+================================ */
+
+function loadIDCardMember() {
+
+    const select =
+        document.getElementById(
+            "idMemberSelect"
+        );
+
+
+    const selectedIndex =
+        select.value;
+
+
+    if (
+        selectedIndex === ""
+    ) {
+
+        resetIDCard();
+
+        return;
+    }
+
+
+    const member =
+        allMembers[
+            Number(selectedIndex)
+        ];
+
+
+    if (!member) {
+
+        resetIDCard();
+
+        return;
+    }
+
+
+    document.getElementById(
+        "idMemberName"
+    ).textContent =
+        member.full_name || "--";
+
+
+    document.getElementById(
+        "idMemberDOB"
+    ).textContent =
+        formatDate(
+            member.date_of_birth
+        );
+
+
+    document.getElementById(
+        "idMemberCategory"
+    ).textContent =
+        member.member_category || "--";
+
+
+    document.getElementById(
+        "idMemberDistrict"
+    ).textContent =
+        member.district || "--";
+
+
+    document.getElementById(
+        "idMemberMajlis"
+    ).textContent =
+        member.majlis || "--";
+
+
+    const photo =
+        document.getElementById(
+            "idMemberPhoto"
+        );
+
+
+    if (member.photo) {
+
+        photo.src =
+            member.photo;
+
+    } else {
+
+        photo.src =
+            "background.png";
+    }
+}
+
+
+/* ================================
+   RESET ID CARD
+================================ */
+
+function resetIDCard() {
+
+    document.getElementById(
+        "idMemberName"
+    ).textContent =
+        "Select Member";
+
+
+    document.getElementById(
+        "idMemberDOB"
+    ).textContent =
+        "--";
+
+
+    document.getElementById(
+        "idMemberCategory"
+    ).textContent =
+        "--";
+
+
+    document.getElementById(
+        "idMemberDistrict"
+    ).textContent =
+        "--";
+
+
+    document.getElementById(
+        "idMemberMajlis"
+    ).textContent =
+        "--";
+
+
+    document.getElementById(
+        "idMemberPhoto"
+    ).src =
+        "background.png";
+}
+
+
+/* ================================
+   DATE FORMAT
+================================ */
+
+function formatDate(
+    dateValue
+) {
+
+    if (!dateValue) {
+
+        return "--";
+    }
+
+
+    const date =
+        new Date(
+            dateValue
+        );
+
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return dateValue;
+    }
+
+
+    const day =
+        String(
+            date.getDate()
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    const year =
+        date.getFullYear();
+
+
+    return (
+        day +
+        "/" +
+        month +
+        "/" +
+        year
+    );
+}
+
+
+/* ================================
+   PRINT ID CARD
+================================ */
+
+function printIDCard() {
+
+    const select =
+        document.getElementById(
+            "idMemberSelect"
+        );
+
+
+    if (!select.value) {
+
+        alert(
+            "Please select a registered member first."
+        );
+
+        return;
+    }
+
+
+    window.print();
+}
+
+
+/* ================================
    LOGOUT
 ================================ */
 
@@ -660,10 +1658,12 @@ async function logout() {
 
 
 /* ================================
-   SECURITY
+   ESCAPE HTML
 ================================ */
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
     if (
         value === null ||
@@ -703,7 +1703,9 @@ function escapeHtml(value) {
 }
 
 
-/* START */
+/* ================================
+   START
+================================ */
 
 checkAdmin();
 
