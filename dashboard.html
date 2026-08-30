@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -22,10 +22,6 @@ body {
     color: #222;
 }
 
-/* ================================
-   HEADER
-================================ */
-
 header {
     background: #006400;
     color: white;
@@ -42,10 +38,6 @@ header p {
     margin: 8px 0 0;
 }
 
-/* ================================
-   TOP BAR
-================================ */
-
 .top-bar {
     max-width: 1200px;
     margin: 20px auto;
@@ -56,48 +48,54 @@ header p {
     gap: 15px;
 }
 
-.id-button {
-    background: #006400;
-    color: white;
+.id-button,
+.logout-button,
+.print-button,
+.back-button {
     border: none;
     padding: 11px 18px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    margin-right: 8px;
+    color: white;
 }
 
-.id-button:hover {
-    background: #004d00;
+.id-button {
+    background: #006400;
+    margin-right: 8px;
 }
 
 .logout-button {
     background: #b00020;
-    color: white;
-    border: none;
-    padding: 11px 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
+}
+
+.print-button {
+    background: #006400;
+    margin-right: 8px;
+}
+
+.back-button {
+    background: #555;
+}
+
+.id-button:hover,
+.print-button:hover {
+    background: #004d00;
 }
 
 .logout-button:hover {
     background: #8a0018;
 }
 
-/* ================================
-   MAIN CONTAINER
-================================ */
+.back-button:hover {
+    background: #333;
+}
 
 .container {
     max-width: 1200px;
     margin: auto;
     padding: 0 15px 40px;
 }
-
-/* ================================
-   STATISTICS
-================================ */
 
 .stats {
     display: grid;
@@ -125,10 +123,6 @@ header p {
     color: #555;
 }
 
-/* ================================
-   SEARCH
-================================ */
-
 .search-box {
     background: white;
     padding: 20px;
@@ -144,10 +138,6 @@ header p {
     border-radius: 6px;
     font-size: 16px;
 }
-
-/* ================================
-   TABLE
-================================ */
 
 .table-container {
     background: white;
@@ -186,10 +176,6 @@ tr:hover {
     border: 2px solid #ccc;
 }
 
-/* ================================
-   MESSAGES
-================================ */
-
 .loading {
     text-align: center;
     padding: 30px;
@@ -212,9 +198,10 @@ tr:hover {
     color: #666;
 }
 
-/* ================================
-   ID CARD SECTION
-================================ */
+
+/* =========================================
+   ID CARD GENERATOR
+========================================= */
 
 #idCardSection {
     display: none;
@@ -253,177 +240,271 @@ tr:hover {
     border-radius: 6px;
 }
 
-/* ================================
+
+/* =========================================
    ID CARD
-================================ */
+========================================= */
 
 .id-card {
     position: relative;
+
     width: 86mm;
     height: 54mm;
+
     margin: 25px auto;
+
     overflow: hidden;
-    border-radius: 8px;
 
-    background-image: url("background.png");
-    background-size: cover;
-    background-position: center;
+    border-radius: 4mm;
 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-    color: #111;
+    background: white;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.30);
+
+    isolation: isolate;
+
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
 }
 
-.card-overlay {
+
+/* REAL BACKGROUND IMAGE */
+
+.card-background {
     position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.25);
-}
 
-.card-content {
-    position: relative;
-    z-index: 2;
+    top: 0;
+    left: 0;
+
     width: 100%;
     height: 100%;
-    padding: 5mm;
+
+    object-fit: cover;
+
+    z-index: 0;
+
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
 }
+
+
+/* LIGHTEN BACKGROUND ONLY */
+
+.card-soft-layer {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(255,255,255,0.35);
+
+    z-index: 1;
+}
+
+
+/* HEADER READABLE AREA */
+
+.card-header-panel {
+    position: absolute;
+
+    top: 2.5mm;
+    left: 3mm;
+    right: 22mm;
+
+    background: rgba(255,255,255,0.88);
+
+    border-radius: 2mm;
+
+    padding: 1.5mm 2mm;
+
+    text-align: center;
+
+    z-index: 3;
+}
+
+
+/* MAIN INFORMATION PANEL */
+
+.card-info-panel {
+    position: absolute;
+
+    left: 33mm;
+    right: 4mm;
+    top: 18.5mm;
+    bottom: 7mm;
+
+    background: rgba(255,255,255,0.90);
+
+    border-radius: 2mm;
+
+    padding: 2mm 2.5mm;
+
+    z-index: 3;
+}
+
 
 /* LOGO */
 
 .logo-container {
     position: absolute;
-    top: 4mm;
-    right: 5mm;
+
+    top: 2.5mm;
+    right: 3mm;
+
     width: 16mm;
     height: 16mm;
+
     background: white;
+
     border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     overflow: hidden;
+
+    border: 1px solid rgba(0,0,0,0.15);
+
     z-index: 10;
 }
 
 .logo-container img {
     width: 100%;
     height: 100%;
+
     object-fit: contain;
-    padding: 2mm;
+
+    padding: 1.5mm;
 }
 
-/* HEADINGS */
+
+/* TITLE */
 
 .heading {
-    width: 65%;
-    text-align: center;
     font-weight: bold;
-    font-size: 11px;
-    line-height: 1.2;
-    margin-bottom: 2mm;
+
+    font-size: 8px;
+
+    line-height: 1.15;
+
+    color: #006400;
+
+    margin-bottom: 1mm;
 }
 
 .subheading {
-    font-size: 8px;
+    font-size: 5.8px;
+
     font-weight: bold;
-    text-align: center;
-    width: 65%;
+
+    line-height: 1.15;
+
+    color: #222;
 }
+
 
 /* PHOTO */
 
 .id-photo {
     position: absolute;
-    left: 5mm;
-    top: 19mm;
+
+    left: 4mm;
+    top: 18.5mm;
+
     width: 25mm;
     height: 29mm;
+
     object-fit: cover;
-    border: 2px solid white;
-    border-radius: 3px;
+
+    border: 1.5px solid white;
+
+    border-radius: 2mm;
+
     background: #ddd;
+
+    z-index: 4;
 }
+
 
 /* DETAILS */
 
 .id-details {
-    position: absolute;
-    left: 34mm;
-    top: 19mm;
-    right: 5mm;
-    font-size: 8px;
-    line-height: 1.65;
+    width: 100%;
+
+    font-size: 7px;
+
+    line-height: 1.55;
+
+    color: #111;
 }
 
 .detail-row {
     display: flex;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+
+    min-height: 5.3mm;
+
+    align-items: center;
 }
 
 .detail-label {
-    width: 25mm;
+    width: 22mm;
+
     font-weight: bold;
+
+    color: #006400;
 }
 
 .detail-value {
     flex: 1;
-    font-weight: 500;
+
+    font-weight: bold;
+
     overflow: hidden;
+
     white-space: nowrap;
+
     text-overflow: ellipsis;
 }
 
+
+/* FOOTER */
+
 .id-footer {
     position: absolute;
-    bottom: 2.5mm;
-    left: 0;
-    right: 0;
+
+    bottom: 1.5mm;
+
+    left: 2mm;
+    right: 2mm;
+
     text-align: center;
-    font-size: 6.5px;
+
+    font-size: 5px;
+
     font-weight: bold;
+
+    color: #006400;
+
+    z-index: 5;
 }
 
-/* ================================
-   ID CARD CONTROLS
-================================ */
+
+/* CONTROLS */
 
 .id-controls {
     text-align: center;
+
     margin-top: 20px;
 }
 
-.print-button {
-    background: #006400;
-}
 
-.back-button {
-    background: #555;
-}
-
-.print-button:hover {
-    background: #004d00;
-}
-
-.back-button:hover {
-    background: #333;
-}
-
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bold;
-    color: white;
-}
-
-button:hover {
-    opacity: 0.9;
-}
-
-/* ================================
-   MOBILE
-================================ */
+/* MOBILE */
 
 @media (max-width: 700px) {
 
@@ -453,20 +534,31 @@ button:hover {
     }
 }
 
-/* ================================
+
+/* =========================================
    PRINT
-================================ */
+========================================= */
 
 @media print {
 
     @page {
-        size: auto;
+        size: 86mm 54mm;
         margin: 0;
     }
 
+    html,
     body {
-        background: white;
-        padding: 0;
+        width: 86mm !important;
+        height: 54mm !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        background: white !important;
+    }
+
+    body {
+        overflow: hidden !important;
     }
 
     header,
@@ -480,286 +572,338 @@ button:hover {
 
     #idCardSection {
         display: block !important;
+
+        width: 86mm !important;
+        height: 54mm !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .id-generator {
-        box-shadow: none;
-        padding: 0;
-        margin: 0;
+        display: block !important;
+
+        width: 86mm !important;
+        height: 54mm !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        box-shadow: none !important;
+
+        background: white !important;
     }
 
     .id-card {
-        margin: 10mm;
-        box-shadow: none;
+        display: block !important;
+
+        position: relative !important;
+
+        width: 86mm !important;
+        height: 54mm !important;
+
+        margin: 0 !important;
+
+        border-radius: 0 !important;
+
+        box-shadow: none !important;
+
+        overflow: hidden !important;
+
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .card-background {
+        display: block !important;
+
+        visibility: visible !important;
+
+        opacity: 1 !important;
+
+        position: absolute !important;
+
+        width: 100% !important;
+        height: 100% !important;
+
+        z-index: 0 !important;
+
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .card-soft-layer {
+        display: block !important;
+    }
+
+    .card-header-panel,
+    .card-info-panel {
+        display: block !important;
+    }
+
+    .logo-container {
+        display: flex !important;
+    }
+
+    .logo-container img,
+    .id-photo {
+        display: block !important;
+
+        visibility: visible !important;
+    }
+
+    .id-footer {
+        display: block !important;
     }
 }
 
 </style>
-
 </head>
+
 
 <body>
 
-<!-- ================================
+
+<!-- =========================================
      HEADER
-================================ -->
+========================================= -->
 
 <header>
 
-```
-<h1>
-    🕌 Admin Dashboard
-</h1>
+    <h1>
+        🕌 Admin Dashboard
+    </h1>
 
-<p>
-    National Ijtema MKA & MAA Sierra Leone 2026
-</p>
-```
+    <p>
+        National Ijtema MKA & MAA Sierra Leone 2026
+    </p>
 
 </header>
 
-<!-- ================================
+
+<!-- =========================================
      TOP BAR
-================================ -->
+========================================= -->
 
 <div class="top-bar">
 
-```
-<div>
-    <strong>
-        Jamaat Registration Administration
-    </strong>
-</div>
+    <div>
+        <strong>
+            Jamaat Registration Administration
+        </strong>
+    </div>
 
-<div>
+    <div>
 
-    <button
-        class="id-button"
-        onclick="openIDCardGenerator()">
+        <button
+            class="id-button"
+            onclick="openIDCardGenerator()">
 
-        🪪 ID Card
+            🪪 ID Card
 
-    </button>
+        </button>
 
-    <button
-        class="logout-button"
-        onclick="logout()">
+        <button
+            class="logout-button"
+            onclick="logout()">
 
-        Logout
+            Logout
 
-    </button>
+        </button>
 
-</div>
-```
+    </div>
 
 </div>
 
-<!-- ================================
-     DASHBOARD SECTION
-================================ -->
+
+<!-- =========================================
+     DASHBOARD
+========================================= -->
 
 <div
     id="dashboardSection"
     class="container">
 
-```
-<div
-    id="errorMessage"
-    class="error">
-</div>
-
-
-<!-- STATISTICS -->
-
-<div class="stats">
-
-    <div class="stat-card">
-
-        <h2 id="totalMembers">
-            0
-        </h2>
-
-        <p>
-            Total Registrations
-        </p>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <h2 id="khuddamCount">
-            0
-        </h2>
-
-        <p>
-            Khuddam
-        </p>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <h2 id="otherCount">
-            0
-        </h2>
-
-        <p>
-            Other Categories
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- SEARCH -->
-
-<div class="search-box">
-
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="Search by name, district, chiefdom, Majlis or category..."
-        oninput="filterMembers()">
-
-</div>
-
-
-<!-- TABLE -->
-
-<div class="table-container">
 
     <div
-        id="loading"
-        class="loading">
+        id="errorMessage"
+        class="error">
+    </div>
 
-        Loading registrations...
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <h2 id="totalMembers">
+                0
+            </h2>
+
+            <p>
+                Total Registrations
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h2 id="khuddamCount">
+                0
+            </h2>
+
+            <p>
+                Khuddam
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h2 id="otherCount">
+                0
+            </h2>
+
+            <p>
+                Other Categories
+            </p>
+
+        </div>
 
     </div>
 
 
-    <table
-        id="membersTable"
-        style="display:none;">
+    <div class="search-box">
 
-        <thead>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by name, district, chiefdom, Majlis or category..."
+            oninput="filterMembers()">
 
-            <tr>
-
-                <th>
-                    Photo
-                </th>
-
-                <th>
-                    Full Name
-                </th>
-
-                <th>
-                    Gender
-                </th>
-
-                <th>
-                    District
-                </th>
-
-                <th>
-                    Chiefdom
-                </th>
-
-                <th>
-                    Majlis
-                </th>
-
-                <th>
-                    Category
-                </th>
-
-                <th>
-                    Profession
-                </th>
-
-                <th>
-                    Emergency Phone
-                </th>
-
-            </tr>
-
-        </thead>
+    </div>
 
 
-        <tbody
-            id="membersBody">
-        </tbody>
-
-    </table>
+    <div class="table-container">
 
 
-    <div
-        id="emptyMessage"
-        class="empty"
-        style="display:none;">
+        <div
+            id="loading"
+            class="loading">
 
-        No registrations found.
+            Loading registrations...
+
+        </div>
+
+
+        <table
+            id="membersTable"
+            style="display:none;">
+
+            <thead>
+
+                <tr>
+
+                    <th>Photo</th>
+                    <th>Full Name</th>
+                    <th>Gender</th>
+                    <th>District</th>
+                    <th>Chiefdom</th>
+                    <th>Majlis</th>
+                    <th>Category</th>
+                    <th>Profession</th>
+                    <th>Emergency Phone</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="membersBody">
+            </tbody>
+
+        </table>
+
+
+        <div
+            id="emptyMessage"
+            class="empty"
+            style="display:none;">
+
+            No registrations found.
+
+        </div>
 
     </div>
 
 </div>
-```
 
-</div>
 
-<!-- ================================
+<!-- =========================================
      ID CARD GENERATOR
-================================ -->
+========================================= -->
 
 <div
     id="idCardSection"
     class="container">
 
-```
-<div class="id-generator">
 
-    <h2>
-        🪪 ID Card Generator
-    </h2>
+    <div class="id-generator">
 
 
-    <div class="id-selector">
-
-        <label for="idMemberSelect">
-
-            Select Registered Member:
-
-        </label>
+        <h2>
+            🪪 ID Card Generator
+        </h2>
 
 
-        <select
-            id="idMemberSelect"
-            onchange="loadIDCardMember()">
+        <div class="id-selector">
 
-            <option value="">
+            <label for="idMemberSelect">
 
-                Select a registered member
+                Select Registered Member:
 
-            </option>
-
-        </select>
-
-    </div>
+            </label>
 
 
-    <!-- ID CARD -->
+            <select
+                id="idMemberSelect"
+                onchange="loadIDCardMember()">
 
-    <div
-        id="idCard"
-        class="id-card">
+                <option value="">
 
-        <div class="card-overlay"></div>
+                    Select a registered member
+
+                </option>
+
+            </select>
+
+        </div>
 
 
-        <div class="card-content">
+        <!-- =================================
+             ID CARD
+        ================================= -->
+
+        <div
+            id="idCard"
+            class="id-card">
+
+
+            <!-- REAL BACKGROUND -->
+
+            <img
+                src="background.png"
+                class="card-background"
+                alt="ID Card Background">
+
+
+            <!-- SOFT FRONT LAYER -->
+
+            <div class="card-soft-layer">
+            </div>
 
 
             <!-- LOGO -->
@@ -773,23 +917,26 @@ button:hover {
             </div>
 
 
-            <!-- HEADING -->
+            <!-- HEADER PANEL -->
 
-            <div class="heading">
+            <div class="card-header-panel">
 
-                THE AHMADIYYA MUSLIM JAMAAT
+                <div class="heading">
+
+                    THE AHMADIYYA MUSLIM JAMAAT
+
+                </div>
+
+                <div class="subheading">
+
+                    NATIONAL IJTEMA MKA & MAA SIERRA LEONE 2026
+
+                </div>
 
             </div>
 
 
-            <div class="subheading">
-
-                NATIONAL IJTEMA MKA & MAA SIERRA LEONE 2026
-
-            </div>
-
-
-            <!-- PHOTO -->
+            <!-- MEMBER PHOTO -->
 
             <img
                 id="idMemberPhoto"
@@ -798,95 +945,99 @@ button:hover {
                 alt="Member Photo">
 
 
-            <!-- DETAILS -->
+            <!-- INFORMATION PANEL -->
 
-            <div class="id-details">
+            <div class="card-info-panel">
+
+                <div class="id-details">
 
 
-                <div class="detail-row">
+                    <div class="detail-row">
 
-                    <span class="detail-label">
-                        Name:
-                    </span>
+                        <span class="detail-label">
+                            Name:
+                        </span>
 
-                    <span
-                        class="detail-value"
-                        id="idMemberName">
+                        <span
+                            class="detail-value"
+                            id="idMemberName">
 
-                        Select Member
+                            Select Member
 
-                    </span>
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Date of Birth:
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="idMemberDOB">
+
+                            --
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Category:
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="idMemberCategory">
+
+                            --
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            District:
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="idMemberDistrict">
+
+                            --
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail-row">
+
+                        <span class="detail-label">
+                            Majlis:
+                        </span>
+
+                        <span
+                            class="detail-value"
+                            id="idMemberMajlis">
+
+                            --
+
+                        </span>
+
+                    </div>
+
 
                 </div>
-
-
-                <div class="detail-row">
-
-                    <span class="detail-label">
-                        Date of Birth:
-                    </span>
-
-                    <span
-                        class="detail-value"
-                        id="idMemberDOB">
-
-                        --
-
-                    </span>
-
-                </div>
-
-
-                <div class="detail-row">
-
-                    <span class="detail-label">
-                        Category:
-                    </span>
-
-                    <span
-                        class="detail-value"
-                        id="idMemberCategory">
-
-                        --
-
-                    </span>
-
-                </div>
-
-
-                <div class="detail-row">
-
-                    <span class="detail-label">
-                        District:
-                    </span>
-
-                    <span
-                        class="detail-value"
-                        id="idMemberDistrict">
-
-                        --
-
-                    </span>
-
-                </div>
-
-
-                <div class="detail-row">
-
-                    <span class="detail-label">
-                        Majlis:
-                    </span>
-
-                    <span
-                        class="detail-value"
-                        id="idMemberMajlis">
-
-                        --
-
-                    </span>
-
-                </div>
-
 
             </div>
 
@@ -899,50 +1050,54 @@ button:hover {
 
             </div>
 
+
         </div>
 
-    </div>
+
+        <!-- BUTTONS -->
+
+        <div class="id-controls">
 
 
-    <!-- CONTROLS -->
+            <button
+                class="print-button"
+                onclick="printIDCard()">
 
-    <div class="id-controls">
+                🖨️ Print ID Card
 
-        <button
-            class="print-button"
-            onclick="printIDCard()">
-
-            🖨️ Print ID Card
-
-        </button>
+            </button>
 
 
-        <button
-            class="back-button"
-            onclick="closeIDCardGenerator()">
+            <button
+                class="back-button"
+                onclick="closeIDCardGenerator()">
 
-            🔙 Back to Dashboard
+                🔙 Back to Dashboard
 
-        </button>
+            </button>
+
+
+        </div>
+
 
     </div>
 
 </div>
-```
 
-</div>
 
 <script>
 
-/* ================================
+
+/* =========================================
    SUPABASE
-================================ */
+========================================= */
 
 const SUPABASE_URL =
     "https://pfebkzrkncpsujbbmhoq.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_t5bF40Ud4fZJKtUB-c4sgQ_hZw_3aQR";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -954,9 +1109,9 @@ const supabaseClient =
 let allMembers = [];
 
 
-/* ================================
-   CHECK ADMIN LOGIN
-================================ */
+/* =========================================
+   CHECK ADMIN
+========================================= */
 
 async function checkAdmin() {
 
@@ -995,9 +1150,9 @@ async function checkAdmin() {
 }
 
 
-/* ================================
+/* =========================================
    LOAD MEMBERS
-================================ */
+========================================= */
 
 async function loadMembers() {
 
@@ -1086,9 +1241,9 @@ async function loadMembers() {
 }
 
 
-/* ================================
+/* =========================================
    STATISTICS
-================================ */
+========================================= */
 
 function updateStatistics() {
 
@@ -1101,8 +1256,10 @@ function updateStatistics() {
     const khuddam =
         allMembers.filter(
             member =>
-                member.member_category ===
-                "Khuddam"
+                String(
+                    member.member_category || ""
+                ).toLowerCase() ===
+                "khuddam"
         );
 
 
@@ -1120,13 +1277,11 @@ function updateStatistics() {
 }
 
 
-/* ================================
+/* =========================================
    DISPLAY MEMBERS
-================================ */
+========================================= */
 
-function displayMembers(
-    members
-) {
+function displayMembers(members) {
 
     const body =
         document.getElementById(
@@ -1140,8 +1295,7 @@ function displayMembers(
         );
 
 
-    body.innerHTML =
-        "";
+    body.innerHTML = "";
 
 
     if (!members.length) {
@@ -1157,107 +1311,95 @@ function displayMembers(
         "none";
 
 
-    members.forEach(
-        member => {
+    members.forEach(member => {
 
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            row.innerHTML = `
-
-                <td>
-
-                    ${
-                        member.photo
-
-                        ?
-
-                        `<img
-                            src="${escapeHtml(member.photo)}"
-                            class="member-photo"
-                            alt="Member Photo">`
-
-                        :
-
-                        "No photo"
-                    }
-
-                </td>
-
-
-                <td>
-                    ${escapeHtml(
-                        member.full_name
-                    )}
-                </td>
-
-
-                <td>
-                    ${escapeHtml(
-                        member.gender
-                    )}
-                </td>
-
-
-                <td>
-                    ${escapeHtml(
-                        member.district
-                    )}
-                </td>
-
-
-                <td>
-                    ${escapeHtml(
-                        member.chiefdom
-                    )}
-                </td>
-
-
-                <td>
-                    ${escapeHtml(
-                        member.majlis
-                    )}
-                </td>
-
-
-                <td>
-                    ${escapeHtml(
-                        member.member_category
-                    )}
-                </td>
-
-
-                <td>
-                    ${escapeHtml(
-                        member.profession
-                    )}
-                </td>
-
-
-                <td>
-                    ${escapeHtml(
-                        member.emergency_phone
-                    )}
-                </td>
-
-            `;
-
-
-            body.appendChild(
-                row
+        const row =
+            document.createElement(
+                "tr"
             );
 
-        }
-    );
+
+        row.innerHTML = `
+
+            <td>
+
+                ${
+                    member.photo
+
+                    ?
+
+                    `<img
+                        src="${escapeHtml(member.photo)}"
+                        class="member-photo"
+                        alt="Member Photo">`
+
+                    :
+
+                    "No photo"
+                }
+
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    member.full_name
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    member.gender
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    member.district
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    member.chiefdom
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    member.majlis
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    member.member_category
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    member.profession
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    member.emergency_phone
+                )}
+            </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+    });
 }
 
 
-/* ================================
+/* =========================================
    SEARCH
-================================ */
+========================================= */
 
 function filterMembers() {
 
@@ -1302,6 +1444,7 @@ function filterMembers() {
                 return text.includes(
                     search
                 );
+
             }
         );
 
@@ -1312,9 +1455,9 @@ function filterMembers() {
 }
 
 
-/* ================================
-   OPEN ID CARD GENERATOR
-================================ */
+/* =========================================
+   OPEN ID GENERATOR
+========================================= */
 
 function openIDCardGenerator() {
 
@@ -1337,12 +1480,13 @@ function openIDCardGenerator() {
 
 
     loadIDMemberList();
+
 }
 
 
-/* ================================
-   CLOSE ID CARD GENERATOR
-================================ */
+/* =========================================
+   CLOSE ID GENERATOR
+========================================= */
 
 function closeIDCardGenerator() {
 
@@ -1362,12 +1506,13 @@ function closeIDCardGenerator() {
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
-/* ================================
-   LOAD MEMBERS INTO ID SELECT
-================================ */
+/* =========================================
+   LOAD MEMBER LIST
+========================================= */
 
 function loadIDMemberList() {
 
@@ -1385,9 +1530,7 @@ function loadIDMemberList() {
     select.innerHTML = `
 
         <option value="">
-
             Select a registered member
-
         </option>
 
     `;
@@ -1417,12 +1560,26 @@ function loadIDMemberList() {
 
         }
     );
+
+
+    /* AUTOMATICALLY SELECT FIRST MEMBER */
+
+    if (
+        allMembers.length > 0 &&
+        select.value === ""
+    ) {
+
+        select.value = "0";
+
+        loadIDCardMember();
+
+    }
 }
 
 
-/* ================================
-   LOAD SELECTED ID CARD MEMBER
-================================ */
+/* =========================================
+   LOAD MEMBER INTO ID CARD
+========================================= */
 
 function loadIDCardMember() {
 
@@ -1507,13 +1664,15 @@ function loadIDCardMember() {
 
         photo.src =
             "background.png";
+
     }
+
 }
 
 
-/* ================================
-   RESET ID CARD
-================================ */
+/* =========================================
+   RESET CARD
+========================================= */
 
 function resetIDCard() {
 
@@ -1554,24 +1713,19 @@ function resetIDCard() {
 }
 
 
-/* ================================
+/* =========================================
    DATE FORMAT
-================================ */
+========================================= */
 
-function formatDate(
-    dateValue
-) {
+function formatDate(dateValue) {
 
     if (!dateValue) {
-
         return "--";
     }
 
 
     const date =
-        new Date(
-            dateValue
-        );
+        new Date(dateValue);
 
 
     if (
@@ -1588,20 +1742,14 @@ function formatDate(
         String(
             date.getDate()
         )
-        .padStart(
-            2,
-            "0"
-        );
+        .padStart(2, "0");
 
 
     const month =
         String(
             date.getMonth() + 1
         )
-        .padStart(
-            2,
-            "0"
-        );
+        .padStart(2, "0");
 
 
     const year =
@@ -1618,9 +1766,9 @@ function formatDate(
 }
 
 
-/* ================================
+/* =========================================
    PRINT ID CARD
-================================ */
+========================================= */
 
 function printIDCard() {
 
@@ -1640,13 +1788,65 @@ function printIDCard() {
     }
 
 
-    window.print();
+    /*
+       Make sure all images have finished loading
+       before opening the print dialog.
+    */
+
+    const images =
+        document.querySelectorAll(
+            "#idCard img"
+        );
+
+
+    const promises =
+        Array.from(images).map(
+            img => {
+
+                if (
+                    img.complete
+                ) {
+
+                    return Promise.resolve();
+
+                }
+
+                return new Promise(
+                    resolve => {
+
+                        img.onload =
+                            resolve;
+
+                        img.onerror =
+                            resolve;
+
+                    }
+                );
+
+            }
+        );
+
+
+    Promise.all(promises)
+        .then(() => {
+
+            setTimeout(
+                () => {
+
+                    window.print();
+
+                },
+                300
+            );
+
+        });
+
 }
 
 
-/* ================================
+/* =========================================
    LOGOUT
-================================ */
+========================================= */
 
 async function logout() {
 
@@ -1657,13 +1857,11 @@ async function logout() {
 }
 
 
-/* ================================
+/* =========================================
    ESCAPE HTML
-================================ */
+========================================= */
 
-function escapeHtml(
-    value
-) {
+function escapeHtml(value) {
 
     if (
         value === null ||
@@ -1703,9 +1901,9 @@ function escapeHtml(
 }
 
 
-/* ================================
+/* =========================================
    START
-================================ */
+========================================= */
 
 checkAdmin();
 
@@ -1713,3 +1911,4 @@ checkAdmin();
 
 </body>
 </html>
+```
