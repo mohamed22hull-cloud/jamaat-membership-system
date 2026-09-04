@@ -768,6 +768,18 @@ body{
 .stat-card{background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.08);border-left:5px solid #006b3c;}
 .stat-number{font-size:30px;font-weight:800;color:#006b3c;}
 .stat-label{font-weight:700;color:#555;margin-top:4px;}
+/* =====================================================
+   DISTRICT REGISTRATION SUMMARY
+===================================================== */
+.district-summary{max-width:1100px;margin:20px auto;background:#fff;padding:20px;border-radius:14px;box-shadow:0 3px 12px rgba(0,0,0,.08);}
+.district-summary h3{margin:0 0 15px;color:#006b3c;text-align:center;}
+.district-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.district-card{background:#f8faf9;border:1px solid #ddd;border-left:5px solid #006b3c;border-radius:8px;padding:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.district-name{font-weight:bold;font-size:14px;}
+.district-number{font-size:22px;font-weight:800;color:#006b3c;}
+@media(max-width:900px){.district-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.district-grid{grid-template-columns:1fr;}}
+
 @media(max-width:700px){.admin-stats{grid-template-columns:1fr;}}
 </style>
 </head>
@@ -852,6 +864,16 @@ National Ijtema ID Card Manager
   <div class="stat-card"><div class="stat-number" id="totalRegistrations">0</div><div class="stat-label">Total Registrations</div></div>
   <div class="stat-card"><div class="stat-number" id="khuddamCount">0</div><div class="stat-label">Khuddam</div></div>
   <div class="stat-card"><div class="stat-number" id="otherCount">0</div><div class="stat-label">Other Categories</div></div>
+
+<!-- =====================================================
+     DISTRICT REGISTRATION SUMMARY
+===================================================== -->
+<div class="district-summary">
+<h3>📊 Members Registered by District</h3>
+<div class="district-grid" id="districtSummary">
+    Loading district totals...
+</div>
+</div>
 </div>
 
 
@@ -1663,6 +1685,35 @@ function updateAdminStats(){
 }
 
 /* =====================================================
+   DISTRICT REGISTRATION SUMMARY
+===================================================== */
+function updateDistrictSummary(){
+    const container=document.getElementById("districtSummary");
+    if(!container) return;
+    const districts=["Bo","Bombali","Bonthe","Falaba","Kailahun","Kambia","Karene","Kenema","Koinadugu","Kono","Moyamba","Port Loko","Pujehun","Tonkolili","Western Area Rural","Western Area Urban"];
+    const counts={};
+    districts.forEach(district=>counts[district]=0);
+    members.forEach(member=>{
+        const district=String(member.district||"").trim();
+        if(district) counts[district]=(counts[district]||0)+1;
+    });
+    container.innerHTML="";
+    Object.keys(counts).forEach(district=>{
+        const card=document.createElement("div");
+        card.className="district-card";
+        const name=document.createElement("span");
+        name.className="district-name";
+        name.textContent=district;
+        const number=document.createElement("span");
+        number.className="district-number";
+        number.textContent=counts[district];
+        card.appendChild(name);
+        card.appendChild(number);
+        container.appendChild(card);
+    });
+}
+
+/* =====================================================
    LOAD MEMBERS
 ===================================================== */
 
@@ -1681,6 +1732,7 @@ async function loadMembers(){
 
         members=data||[];
         updateAdminStats();
+        updateDistrictSummary();
         selectedMemberIds.clear();
 
         populateDistrictFilter();
